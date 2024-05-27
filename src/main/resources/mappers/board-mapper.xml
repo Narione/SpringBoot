@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.nextit.springboot.board.BoardMapper">
+    <resultMap id="boardMap" type="boardVO">
+        <result property="no" column="no" />
+        <result property="writer" column="writer" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="createDate" column="create_date" />
+        <result property="modifyDate" column="modify_date" />
+        <result property="hits" column="hits" />
+        <collection select="selectComments" property="commentList" column="no" javaType="list" ofType="commentVO" />
+        <collection select="selectFiles" property="fileList" column="no" javaType="list" ofType="fileVO" />
+    </resultMap>
+
+
+    <select id="selectBoards" resultMap="boardMap">
+        SELECT
+            A.NO,
+            B.NAME WRITER,
+            A.TITLE,
+            A.CONTENT,
+            A.CREATE_DATE,
+            A.MODIFY_DATE,
+            A.HITS
+        FROM BOARD A
+            LEFT OUTER JOIN MEMBER B ON A.WRITER = B.ID
+    </select>
+
+    <select id="selectBoard" parameterType="long" resultMap="boardMap">
+        SELECT
+            A.NO,
+            B.NAME WRITER,
+            A.TITLE,
+            A.CONTENT,
+            A.CREATE_DATE,
+            A.MODIFY_DATE,
+            A.HITS
+        FROM BOARD A
+            LEFT OUTER JOIN MEMBER B ON A.WRITER = B.ID
+        WHERE
+            a.no = #{no}
+    </select>
+
+    <select id="selectComments" resultType="commentVO">
+        SELECT
+            ID,
+            BOARD_NO,
+            FILE_PATH,
+            FILE_NAME,
+            ORIGINAL_NAME,
+            FILE_SIZE,
+            CREATE_DATE
+        FROM
+            ATTACHED_FILE
+        WHERE
+            BOARD_NO=#{boardNo}
+    </select>
+    <select id="selectFiles" resultType="fileVO">
+        SELECT
+            A.ID,
+            A.BOARD_NO,
+            B.NAME WRITER,
+            A.CONTENT,
+            A.CREATE_DATE,
+            A.MODIFY_DATE
+        FROM COMMENTS A
+            LEFT OUTER JOIN MEMBER B ON A.WRITER = B.ID
+        WHERE
+            BOARD_NO=#{boardNo}
+    </select>
+    <insert id="registerBoard" parameterType="boardVO">
+        insert into BOARD
+            (WRITER, TITLE, CONTENT)
+        values
+            (#{writer},#{title},#{content})
+    </insert>
+    <update id="modifyBoard" parameterType="boardVO">
+        update
+            BOARD
+        set
+            title=#{title},
+            content=#{content}
+        where
+            no = #{no}
+    </update>
+    <delete id="removeBoard" parameterType="long">
+        delete from
+            BOARD
+        where no = #{no}
+    </delete>
+</mapper>
