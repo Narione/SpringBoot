@@ -46,7 +46,7 @@
             a.no = #{no}
     </select>
 
-    <select id="selectComments" resultType="commentVO">
+    <select id="selectFiles" resultType="fileVO">
         SELECT
             ID,
             BOARD_NO,
@@ -60,7 +60,7 @@
         WHERE
             BOARD_NO=#{boardNo}
     </select>
-    <select id="selectFiles" resultType="fileVO">
+    <select id="selectComments" resultType="commentVO">
         SELECT
             A.ID,
             A.BOARD_NO,
