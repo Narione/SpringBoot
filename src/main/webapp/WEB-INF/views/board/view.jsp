@@ -51,6 +51,10 @@
                             <p class="mb-0 opacity-75">${comment.content}</p>
                         </div>
                         <small class="opacity-50 text-nowrap">${comment.createDate}</small>
+                        <div>
+                        <button class="btn btn-secondary" type="button" id="modifyBtn">수정</button>
+                        <button class="btn btn-secondary" type="button" id="removeBtn">삭제</button>
+                        </div>
                     </div>
                 </a>
             </c:forEach>

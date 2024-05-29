@@ -23,4 +23,18 @@
         VALUES
             (#{boardNo},#{writer},#{content})
     </insert>
+    <update id="modifyComment" parameterType="commentVO">
+        update
+            comments
+        set
+            content=#{content}
+        where
+            id=#{id}
+    </update>
+    <delete id="removeComment" parameterType="long">
+        delete from
+            comments
+        where
+            id = #{id}
+    </delete>
 </mapper>

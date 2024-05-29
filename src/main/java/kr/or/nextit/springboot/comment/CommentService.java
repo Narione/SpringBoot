@@ -12,4 +12,12 @@ public class CommentService {
         mapper.registerComment(comment);
         return mapper.selectComment(comment.getId());
     }
+
+    void modifyComment(CommentVO comment) {
+        mapper.modifyComment(comment);
+    }
+
+    void removeComment(long id) {
+        mapper.removeComment(id);
+    }
 }

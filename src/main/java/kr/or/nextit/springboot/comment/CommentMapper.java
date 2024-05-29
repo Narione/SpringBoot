@@ -6,4 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface CommentMapper {
     CommentVO selectComment(long id);
     void registerComment(CommentVO comment);
+    void modifyComment(CommentVO comment);
+    void removeComment(long id);
 }
