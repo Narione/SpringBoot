@@ -27,6 +27,8 @@
             A.HITS
         FROM BOARD A
             LEFT OUTER JOIN MEMBER B ON A.WRITER = B.ID
+        ORDER BY
+            A.NO DESC
     </select>
 
     <select id="selectBoard" parameterType="long" resultMap="boardMap">
@@ -71,7 +73,17 @@
         WHERE
             BOARD_NO=#{boardNo}
     </select>
-    <insert id="registerBoard" parameterType="boardVO">
+    <update id="updateHits" parameterType="long">
+        update
+            board
+        set
+            hits = hits +1
+        where
+            NO=#{boardNo}
+    </update>
+
+
+    <insert id="registerBoard" parameterType="boardVO" useGeneratedKeys="true" keyProperty="no" keyColumn="no">
         insert into BOARD
             (WRITER, TITLE, CONTENT)
         values

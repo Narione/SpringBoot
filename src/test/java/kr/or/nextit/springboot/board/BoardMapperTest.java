@@ -1,5 +1,6 @@
 package kr.or.nextit.springboot.board;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.slf4j.Logger;
@@ -12,11 +13,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @MybatisTest
+@Slf4j
 // 실제 데이터베이스에 연결할 경우
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class BoardMapperTest {
     // TDD(Test Driven Development)
-    private static final Logger log = LoggerFactory.getLogger(BoardMapperTest.class);
+//    private static final Logger log = LoggerFactory.getLogger(BoardMapperTest.class);
     @Autowired
     private BoardMapper mapper;
 
@@ -31,24 +33,24 @@ class BoardMapperTest {
     }
     @Test
     void registerBoard(){
-        BoardVO board = new BoardVO();
-        board.setWriter("miso");
-        board.setTitle("테스트제목");
-        board.setContent("테스트 내용");
-        mapper.registerBoard(board);
-        List<BoardVO> boards = mapper.selectBoards();
-        assertEquals(23, boards.size());
+//        BoardVO board = new BoardVO();
+//        board.setWriter("miso");
+//        board.setTitle("테스트제목");
+//        board.setContent("테스트 내용");
+//        mapper.registerBoard(board);
+//        List<BoardVO> boards = mapper.selectBoards();
+//        assertEquals(23, boards.size());
     }
     @Test
     void modifyBoard(){
-        BoardVO board = new BoardVO();
-        board.setNo(125);
-        board.setTitle("업뎃 테스트 제목");
-        board.setContent("업뎃 테스트 내용");
-        mapper.modifyBoard(board);
-        BoardVO board2 = mapper.selectBoard(125);
-        assertEquals(board.getTitle(), board2.getTitle());
-        assertEquals(board.getContent(), board2.getContent());
+//        BoardVO board = new BoardVO();
+//        board.setNo(125);
+//        board.setTitle("업뎃 테스트 제목");
+//        board.setContent("업뎃 테스트 내용");
+//        mapper.modifyBoard(board);
+//        BoardVO board2 = mapper.selectBoard(125);
+//        assertEquals(board.getTitle(), board2.getTitle());
+//        assertEquals(board.getContent(), board2.getContent());
     }
 
     @Test

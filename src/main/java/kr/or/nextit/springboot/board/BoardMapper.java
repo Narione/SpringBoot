@@ -8,6 +8,7 @@ import java.util.List;
 public interface BoardMapper {
     List<BoardVO> selectBoards();
     BoardVO selectBoard(long no);
+    void updateHits(long boardNo);
     void registerBoard(BoardVO board);
     void modifyBoard(BoardVO board);
     void removeBoard(long no);
