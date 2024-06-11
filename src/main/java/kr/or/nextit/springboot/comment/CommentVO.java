@@ -17,6 +17,7 @@ public class CommentVO {
     private long id;
     private long boardNo;
     private String writer;
+    private String name;
     private String content;
     @DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
     private LocalDateTime createDate;

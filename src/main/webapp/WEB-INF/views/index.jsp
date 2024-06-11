@@ -1,3 +1,4 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: user
@@ -11,7 +12,14 @@
     <title>Home</title>
 </head>
 <body>
+<sec:authorize access="isAnonymous()">
 <a href="/login">로그인</a>
+</sec:authorize>
+<sec:authorize access="isAuthenticated()">
+    <form action="/logout" method="post">
+        <button>로그아웃</button>
+    </form>
+</sec:authorize>
 <a href="/board/list">게시판</a>
 </body>
 </html>

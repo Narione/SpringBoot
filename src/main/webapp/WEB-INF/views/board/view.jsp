@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: ynhp3
@@ -7,6 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,6 +39,7 @@
     </div>
     <hr class="my3">
     <div class="row">
+        <sec:authentication property="principal.username" />
         <h6>댓글</h6>
         <div>
 
@@ -47,13 +50,18 @@
                     <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
                     <div class="d-flex gap-2 w-100 justify-content-between">
                         <div>
-                            <h6 class="mb-0">${comment.writer}</h6>
+                            <h6 class="mb-0">${comment.name}</h6>
                             <p class="mb-0 opacity-75">${comment.content}</p>
                         </div>
                         <small class="opacity-50 text-nowrap">${comment.createDate}</small>
                         <div>
-                        <button class="btn btn-secondary" type="button" id="modifyBtn">수정</button>
-                        <button class="btn btn-secondary" type="button" id="removeBtn">삭제</button>
+
+                            <sec:authentication property="principal.username" var="id"/>
+                            <c:if test="${comment.writer==id}">
+                                <button class="btn btn-secondary" type="button" id="modifyBtn">수정</button>
+                                <button class="btn btn-secondary" type="button" id="removeBtn">삭제</button>
+
+                            </c:if>
                         </div>
                     </div>
                 </a>
@@ -68,7 +76,7 @@
                 <div class="input-group">
                     <textarea name="content" class="form-control" id="content"></textarea>
                     <input type="hidden" name="boardNo" value="${board.no}">
-                    <input type="hidden" name="writer" value="nina">
+                    <input type="hidden" name="writer" value="${id}">
                     <button class="btn btn-secondary" type="button" id="registerBtn">등록</button>
                 </div>
             </form>
